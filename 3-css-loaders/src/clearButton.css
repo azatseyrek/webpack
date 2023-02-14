@@ -1,0 +1,10 @@
+.clearButton {
+    background-color: #1c936f;
+    border: 1px solid #a28b8b;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    color: #fff;
+}
