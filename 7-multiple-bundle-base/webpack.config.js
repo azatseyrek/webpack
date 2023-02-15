@@ -13,7 +13,7 @@ module.exports = {
   devServer: {
     static: "./dist",
   },
-  plugins: [
+  plugins: [  
     new htmlWebpackPlugin({
       template: path.resolve(__dirname, "src/index.html"),
       chunks: ["index"],
