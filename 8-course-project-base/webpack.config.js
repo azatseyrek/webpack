@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   entry: {
@@ -7,8 +9,8 @@ module.exports = {
     courses: './src/pages/courses.js',
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
   devServer: {
@@ -17,39 +19,40 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        test: /\.s[ac]ss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.s[ac]ss$/i,
-        use: [
-          // Creates `style` nodes from JS strings
-          'style-loader',
-          // Translates CSS into CommonJS
-          'css-loader',
-          // Compiles Sass to CSS
-          'sass-loader',
-        ],
+        test: /\.(png|jpeg|jpg|gif)$/,
+        type: 'asset/resource',
       },
     ],
   },
-
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Home',
-      filename: 'index.html',
       template: './src/index.html',
       chunks: ['index'],
+      filename: 'index.html',
     }),
     new HtmlWebpackPlugin({
-      title: 'Courses',
-      filename: 'courses.html',
       template: './src/pages/courses.html',
       chunks: ['courses'],
+      filename: 'courses.html',
+      base: 'pages',
     }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/assets/images/*'),
+          to: path.resolve(__dirname, 'dist'),
+          context: 'src',
+        },
+      ],
+    }),
+    new BundleAnalyzerPlugin(),
   ],
 };
