@@ -1,9 +1,9 @@
 import React from "react";
 import "./login.scss";
 import logo from "../../assets/logo.png";
-import Button from '../../components/button/Button.jsx'
+import Button from "../../components/button/Button.jsx"
 import Signin from "../../components/signIn/signin.jsx";
-import {useHistory} from 'react-router-dom';
+import {useHistory} from "react-router-dom";
 
 const Login = () => {
   const history = useHistory();
